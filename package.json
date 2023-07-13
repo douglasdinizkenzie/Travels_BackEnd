@@ -1,0 +1,38 @@
+{
+  "name": "travels_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "(app.js)",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node-dev --ignore-watch node_modules --cls --rs src/server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/douglasdinizkenzie/Travels_BackEnd.git"
+  },
+  "author": "Douglas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/douglasdinizkenzie/Travels_BackEnd/issues"
+  },
+  "homepage": "https://github.com/douglasdinizkenzie/Travels_BackEnd#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^9.0.1",
+    "prisma": "^4.16.2",
+    "reflect-metadata": "^0.1.13",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.1.6",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "@prisma/client": "^5.0.0",
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.4.2"
+  }
+}
