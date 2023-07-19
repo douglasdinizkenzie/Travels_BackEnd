@@ -5,9 +5,9 @@ export const userSchema = z.object({
   name: z.string().max(100),
   email: z.string().max(255).email(),
   cpf: z.string().max(14),
-  phone: z.string().max(120).optional(),
+  phone: z.string().max(120).nullish(),
   date_of_birth: z.string().max(12),
-  description: z.string().optional(),
+  description: z.string().nullish(),
   password: z.string().max(255),
 });
 
