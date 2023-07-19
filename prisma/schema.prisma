@@ -17,7 +17,7 @@ model User {
   cpf           String    @unique @db.VarChar(14)
   phone         String?   @db.VarChar(120)
   date_of_birth String    @db.VarChar(12)
-  description   String    @db.Text()
+  description   String?    @db.Text()
   password      String    @db.VarChar(255)
   Address       Address?
 
@@ -32,5 +32,5 @@ model Address {
   user      User   @relation(fields: [user_uuid], references: [uuid], onDelete: Cascade)
   user_uuid String @unique
 
-  @@map("address")
+  @@map("address") 
 }

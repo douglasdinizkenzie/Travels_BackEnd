@@ -1,11 +1,13 @@
-import "reflect-metadata";
 import "express-async-errors";
-import express from "express";
-import { HandlerErros } from "./errors";
+import express, { Application } from "express";
+import { usersRoutes } from "./routes/users.routes";
+import { handlerError } from "./middlewares/handleErrorMiddleware";
 
-const app = express();
+const app: Application = express();
 app.use(express.json());
 
-app.use(HandlerErros);
+app.use("/users", usersRoutes);
+
+app.use(handlerError);
 
 export default app;
