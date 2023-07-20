@@ -9,4 +9,7 @@ export const addressSchema = z.object({
   user_uuid: userSchemaResponse,
 });
 
-export const addressSchemaRequest = addressSchema.omit({ uuid: true });
+export const addressSchemaRequest = addressSchema.omit({
+  uuid: true,
+  user_uuid: true,
+});
