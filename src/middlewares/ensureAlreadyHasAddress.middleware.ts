@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { users } from "../interfaces/users.interfaces";
 import prisma from "../database/prismaClient";
 import { address } from "../interfaces/address.interface";
 import AppError from "../errors/app.Error";

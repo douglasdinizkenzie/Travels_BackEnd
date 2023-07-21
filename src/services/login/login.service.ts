@@ -4,9 +4,12 @@ import AppError from "../../errors/app.Error";
 import { login } from "../../interfaces/login.interface";
 import jwt from "jsonwebtoken";
 import "dotenv";
+import { users } from "../../interfaces/users.interfaces";
 
 export const loginService = async (data: login): Promise<string> => {
-  const user = await prisma.user.findFirst({ where: { email: data.email } });
+  const user: users | null = await prisma.user.findFirst({
+    where: { email: data.email },
+  });
 
   if (!user) {
     throw new AppError("Email or Password invalid!", 401);

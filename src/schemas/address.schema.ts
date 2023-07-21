@@ -7,9 +7,11 @@ export const addressSchema = z.object({
   state: z.string().max(4),
   city: z.string().max(50),
   user_uuid: z.string(),
+  user: userSchemaResponse.nullish(),
 });
 
 export const addressSchemaRequest = addressSchema.omit({
   uuid: true,
   user_uuid: true,
+  user: true,
 });

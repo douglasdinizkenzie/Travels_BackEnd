@@ -1,5 +1,6 @@
 import prisma from "../../database/prismaClient";
 import { address, addressRequest } from "../../interfaces/address.interface";
+import { addressSchema } from "../../schemas/address.schema";
 
 export const createAddressService = async (
   data: addressRequest,
@@ -10,5 +11,5 @@ export const createAddressService = async (
     include: { user: true },
   });
 
-  return newAddress;
+  return addressSchema.parse(newAddress);
 };
