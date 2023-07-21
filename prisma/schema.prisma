@@ -19,7 +19,7 @@ model User {
   date_of_birth String    @db.VarChar(12)
   description   String?   @db.Text()
   password      String    @db.VarChar(255)
-  Address       Address?
+  address       Address?
 
   @@map("users")
 }

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { addressSchema } from "./address.schema";
 
 export const userSchema = z.object({
   uuid: z.string().uuid(),
