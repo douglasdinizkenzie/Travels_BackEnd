@@ -1,16 +1,17 @@
 import { NextFunction, Request, Response } from "express";
 import prisma from "../database/prismaClient";
 import AppError from "../errors/app.Error";
+import { users } from "../interfaces/users.interfaces";
 
 export const ensureEmailAndCpfIsUniquePOSTMiddlware = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const emailReq = req.body.email;
-  const cpfReq = req.body.cpf;
+  const emailReq: string = req.body.email;
+  const cpfReq: string = req.body.cpf;
 
-  const emailExists = await prisma.user.findFirst({
+  const emailExists: users | null = await prisma.user.findFirst({
     where: { email: emailReq },
   });
 
@@ -18,11 +19,13 @@ export const ensureEmailAndCpfIsUniquePOSTMiddlware = async (
     throw new AppError("User already exists", 409);
   }
 
-  const cpfExists = await prisma.user.findFirst({
+  const cpfExists: users | null = await prisma.user.findFirst({
     where: { cpf: cpfReq },
   });
+
   if (cpfExists) {
     throw new AppError("User already exists", 409);
   }
+
   return next();
 };

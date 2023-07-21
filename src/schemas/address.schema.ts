@@ -6,10 +6,12 @@ export const addressSchema = z.object({
   cep: z.string().max(8),
   state: z.string().max(4),
   city: z.string().max(50),
-  user_uuid: userSchemaResponse,
+  user_uuid: z.string(),
+  user: userSchemaResponse.nullish(),
 });
 
 export const addressSchemaRequest = addressSchema.omit({
   uuid: true,
   user_uuid: true,
+  user: true,
 });
