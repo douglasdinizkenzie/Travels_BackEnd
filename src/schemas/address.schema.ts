@@ -3,7 +3,7 @@ import { userSchemaResponse } from "./user.schema";
 
 export const addressSchema = z.object({
   uuid: z.string().uuid(),
-  cep: z.string().max(8),
+  cep: z.string().max(11),
   state: z.string().max(4),
   city: z.string().max(50),
   user_uuid: z.string(),
