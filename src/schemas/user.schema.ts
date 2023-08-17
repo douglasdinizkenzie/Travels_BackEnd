@@ -15,8 +15,19 @@ export const userSchemaRequest = userSchema.omit({
   uuid: true,
 });
 
-export const userSchemaResponse = userSchema.omit({
-  password: true,
-});
+export const userSchemaResponse = userSchema
+  .omit({
+    password: true,
+  })
+  .extend({
+    address: z
+      .object({
+        uuid: z.string(),
+        cep: z.string(),
+        state: z.string(),
+        city: z.string(),
+      })
+      .nullish(),
+  });
 
 export const userSchemaUpdate = userSchemaRequest.deepPartial();
