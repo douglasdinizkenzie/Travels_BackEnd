@@ -9,7 +9,7 @@ export const createUserController = async (
 ): Promise<Response> => {
   const data: usersRequest = req.body;
   const newUser: usersResponse = await createUserService(data);
-  return res.status(200).json(newUser);
+  return res.status(201).json(newUser);
 };
 
 export const listUserInfosController = async (
