@@ -7,6 +7,12 @@
 
 ---
 
+## 1 - Sobre
+
+Travels é um projeto que simula uma rede social para os amantes de viagens, onde podem trocar experiências, histórias e interagirem entre si.
+
+---
+
 ## 2 - Tecnologias
 
 Um pouco das tecnologias que foram utilizadas no projeto: 
