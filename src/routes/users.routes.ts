@@ -17,4 +17,4 @@ usersRoutes.post(
   createUserController
 );
 
-usersRoutes.get("", ensureIsAuthMiddleware, listUserInfosController);
+usersRoutes.get("/info", ensureIsAuthMiddleware, listUserInfosController);
