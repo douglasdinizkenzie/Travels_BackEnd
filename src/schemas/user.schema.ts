@@ -30,4 +30,4 @@ export const userSchemaResponse = userSchema
       .nullish(),
   });
 
-export const userSchemaUpdate = userSchemaRequest.deepPartial();
+export const userSchemaUpdate = userSchemaRequest.omit({password: true}).deepPartial();
