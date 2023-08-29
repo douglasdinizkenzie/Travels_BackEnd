@@ -13,6 +13,7 @@ datasource db {
 model User {
   uuid          String    @id @default(uuid())
   name          String    @db.VarChar(100)
+  image         String?    @db.VarChar(255)
   email         String    @unique @db.VarChar(255)
   cpf           String    @unique @db.VarChar(19)
   phone         String?   @db.VarChar(120)
