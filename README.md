@@ -77,9 +77,11 @@ npm run dev
 | Método   | Rota       | Descrição                                      |
 |----------|------------|------------------------------                  |
 | POST     | /users     | Cria Usuários.                                 |
+| PATCH    | /users     | Modificar Usuários.                            |
 | GET      | /users/info| Lista informações do usuário logado.           |
-| POST     | /login     | Loga o usuário na aplicação.                   |
 | POST     | /address/id| Cadastra um endereço para o usuário.           |
+| POST     | /login     | Loga o usuário na aplicação.                   |
+
 
 
 ---
@@ -112,9 +114,77 @@ npm run dev
   "email": "email@gmail.com",
   "cpf": "12345678904554",
   "date_of_birth": "19/09/2000",
-  "password": "123456",
   "phone": "(00)00000-0000",
   "description": "description"
+}
+```
+
+
+
+---
+
+### Modificar usuário.
+### `/users`
+#### Necessário Bearer token.
+### Requisição
+
+```json
+{
+"name": "teste patch"
+}
+```
+
+### Retorno esperado
+**STATUS 200**
+
+```json
+{
+  "uuid": "7796cbc3-5d24-473b-9390-23d47bbc36b5",
+  "name": "teste patch",
+  "email": "email@gmail.com",
+  "cpf": "12345678904554",
+  "date_of_birth": "19/09/2000",
+  "phone": "(00)00000-0000",
+  "description": "description"
+}
+```
+
+---
+
+### Cadastrar endereço para usuário.
+### `/address/id`
+
+#### Necessário fornecer id do usuário 
+
+### Requisição
+
+```json
+{
+    "cep": "01153-000",
+    "state": "SP",
+    "city": "São Paulo"
+}
+```
+
+### Retorno esperado
+**STATUS 201**
+
+```json
+{
+    "uuid": "2d1e9d36-efe4-4baf-8d28-26a944a556af",
+    "cep": "01153-000",
+    "state": "SP",
+    "city": "São Paulo",
+    "user_uuid": "7796cbc3-5d24-473b-9390-23d47bbc36b5",
+    "user": {
+        "uuid": "7796cbc3-5d24-473b-9390-23d47bbc36b5",
+        "name": "teste",
+        "email": "email@gmail.com",
+        "cpf": "12345678904554",
+        "phone": "(00)00000-0000",
+        "date_of_birth": "19/09/2000",
+        "description": "description"
+    }
 }
 ```
 
@@ -166,45 +236,6 @@ npm run dev
 ```json
 {
 	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsQGdtYWlsLmNvbSIsImlhdCI6MTY5MjY0MTMyOSwiZXhwIjoxNjkyNzI3NzI5LCJzdWIiOiI3Nzk2Y2JjMy01ZDI0LTQ3M2ItOTM5MC0yM2Q0N2JiYzM2YjUifQ.VXCgaFen5Ur6-mj_9SGBxetJQSvavZ553W5XwMvWB"
-}
-```
-
----
-
-### Cadastrar endereço para usuário.
-### `/address/id`
-
-#### Necessário fornecer id do usuário 
-
-### Requisição
-
-```json
-{
-    "cep": "01153-000",
-    "state": "SP",
-    "city": "São Paulo"
-}
-```
-
-### Retorno esperado
-**STATUS 201**
-
-```json
-{
-    "uuid": "2d1e9d36-efe4-4baf-8d28-26a944a556af",
-    "cep": "01153-000",
-    "state": "SP",
-    "city": "São Paulo",
-    "user_uuid": "7796cbc3-5d24-473b-9390-23d47bbc36b5",
-    "user": {
-        "uuid": "7796cbc3-5d24-473b-9390-23d47bbc36b5",
-        "name": "teste",
-        "email": "email@gmail.com",
-        "cpf": "12345678904554",
-        "phone": "(00)00000-0000",
-        "date_of_birth": "19/09/2000",
-        "description": "description"
-    }
 }
 ```
 
