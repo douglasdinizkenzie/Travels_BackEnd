@@ -11,30 +11,67 @@ datasource db {
 }
 
 model User {
-  uuid          String    @id @default(uuid())
-  name          String    @db.VarChar(100)
-  email         String    @unique @db.VarChar(255)
-  cpf           String    @unique @db.VarChar(19)
-  phone         String?   @db.VarChar(120)
-  date_of_birth String    @db.VarChar(12)
-  description   String?   @db.Text()
-  password      String    @db.VarChar(255)
-  address       Address?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime?  @updatedAt
+  uuid           String         @id @default(uuid())
+  name           String         @db.VarChar(100)
+  image          String?        @db.VarChar(255)
+  email          String         @unique @db.VarChar(255)
+  cpf            String         @unique @db.VarChar(19)
+  phone          String?        @db.VarChar(120)
+  date_of_birth  String         @db.VarChar(12)
+  description    String?        @db.Text()
+  password       String         @db.VarChar(255)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime?      @updatedAt
+  address        Address?
+  posts          Posts[]
+  posts_comments PostComments[]
+  posts_likes    PostLikes[]
 
   @@map("users")
 }
 
 model Address {
-  uuid      String @id @default(uuid())
-  cep       String @db.VarChar(11)
-  state     String @db.VarChar(4)
-  city      String @db.VarChar(50)
-  user      User   @relation(fields: [user_uuid], references: [uuid], onDelete: Cascade)
-  user_uuid String @unique
+  uuid      String    @id @default(uuid())
+  cep       String    @db.VarChar(11)
+  state     String    @db.VarChar(4)
+  city      String    @db.VarChar(50)
+  user      User      @relation(fields: [user_uuid], references: [uuid], onDelete: Cascade)
+  user_uuid String    @unique
   createdAt DateTime  @default(now()) @db.Timestamp(0)
-  updatedAt DateTime?  @updatedAt
+  updatedAt DateTime? @updatedAt
 
-  @@map("address") 
+  @@map("address")
+}
+
+model Posts {
+  uuid        String         @id @default(uuid())
+  post        String         @db.Text()
+  image       String?        @db.VarChar(255)
+  author      User           @relation(fields: [author_uuid], references: [uuid], onDelete: Cascade)
+  author_uuid String
+  comments    PostComments[]
+  likes       PostLikes[]
+
+  @@map("posts")
+}
+
+model PostComments {
+  uuid        String @id @default(uuid())
+  comment     String @db.Text()
+  author      User   @relation(fields: [author_uuid], references: [uuid], onDelete: Cascade)
+  author_uuid String
+  post        Posts  @relation(fields: [post_uuid], references: [uuid], onDelete: Cascade)
+  post_uuid   String
+
+  @@map("post_comments")
+}
+
+model PostLikes {
+  uuid      String @id @default(uuid())
+  user      User   @relation(fields: [user_uuid], references: [uuid], onDelete: Cascade)
+  user_uuid String
+  post      Posts  @relation(fields: [post_uuid], references: [uuid], onDelete: Cascade)
+  post_uuid String
+
+  @@map("post_likes")
 }
