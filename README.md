@@ -77,7 +77,7 @@ npm run dev
 | Método   | Rota       | Descrição                                      |
 |----------|------------|------------------------------                  |
 | POST     | /users     | Cria Usuários.                                 |
-| PATCH    | /users     | Modificar Usuários.                            |
+| PATCH    | /users     | Modifica Usuários.                             |
 | GET      | /users/info| Lista informações do usuário logado.           |
 | POST     | /address/id| Cadastra um endereço para o usuário.           |
 | POST     | /login     | Loga o usuário na aplicação.                   |
