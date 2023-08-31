@@ -3,11 +3,13 @@ import {
   usersRequest,
   usersRequestUpdate,
   usersResponse,
+  usersResponsePaginated,
 } from "../interfaces/users.interfaces";
 import { createUserService } from "../services/users/createUser.service";
 import { listUserInfosService } from "../services/users/listUserInfos.service";
 import { editUserService } from "../services/users/editUser.service";
 import { deleteUserService } from "../services/users/deleteUser.service";
+import { listAllUsersService } from "../services/users/listAllUsers.service";
 
 export const createUserController = async (
   req: Request,
@@ -26,6 +28,23 @@ export const listUserInfosController = async (
   const userInfos: usersResponse = await listUserInfosService(userId);
 
   return res.status(200).json(userInfos);
+};
+
+export const listAllUsersController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { limit, offset, name } = req.query;
+  const currentUrl: string = req.baseUrl;
+
+  const usersPaginated: usersResponsePaginated = await listAllUsersService(
+    limit,
+    offset,
+    name,
+    currentUrl
+  );
+
+  return res.status(200).json(usersPaginated);
 };
 
 export const editUserController = async (

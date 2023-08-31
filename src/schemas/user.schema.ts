@@ -35,6 +35,8 @@ export const userSchemaResponse = userSchema
       .nullish(),
   });
 
+export const userSchemaResponseArray = userSchemaResponse.array();
+
 export const userSchemaUpdate = userSchemaRequest
   .omit({ password: true })
   .deepPartial();
