@@ -5,11 +5,11 @@ import {
   createUserController,
   deleteUserController,
   editUserController,
+  listAllUsersController,
   listUserInfosController,
 } from "../controllers/users.controller";
 import { ensureIsAuthMiddleware } from "../middlewares/ensureIsAuth.middleware";
 import { ensureEmailAndCpfIsUniqueMiddlware } from "../middlewares/ensureEmailAndCpfIsUniquePATCH.middleware";
-import { ensureUserExistsMiddleware } from "../middlewares/ensureUserExists.middleware";
 
 export const usersRoutes: Router = Router();
 
@@ -21,6 +21,8 @@ usersRoutes.post(
 );
 
 usersRoutes.get("/info", ensureIsAuthMiddleware, listUserInfosController);
+
+usersRoutes.get("", ensureIsAuthMiddleware, listAllUsersController);
 
 usersRoutes.patch(
   "",
