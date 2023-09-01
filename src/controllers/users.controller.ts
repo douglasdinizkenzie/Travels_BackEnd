@@ -20,6 +20,21 @@ export const createUserController = async (
   return res.status(201).json(newUser);
 };
 
+export const createUserProfileImageController = async (
+  req: Request,
+  res: Response
+) => {
+  console.log(req.file);
+  if (req.file) {
+    return res.status(200).json({ mensagem: "formato aceito" });
+  }
+  if (!req.file) {
+    return res.status(401).json({
+      mensagem: "formato não aceito",
+    });
+  }
+};
+
 export const listUserInfosController = async (
   req: Request,
   res: Response

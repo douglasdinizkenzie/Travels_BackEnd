@@ -3,6 +3,7 @@ import { ensureDataIsValidMiddleware } from "../middlewares/ensureDataIsValid.mi
 import { userSchemaRequest, userSchemaUpdate } from "../schemas/user.schema";
 import {
   createUserController,
+  createUserProfileImageController,
   deleteUserController,
   editUserController,
   listAllUsersController,
@@ -10,6 +11,7 @@ import {
 } from "../controllers/users.controller";
 import { ensureIsAuthMiddleware } from "../middlewares/ensureIsAuth.middleware";
 import { ensureEmailAndCpfIsUniqueMiddlware } from "../middlewares/ensureEmailAndCpfIsUniquePATCH.middleware";
+import { upload } from "../middlewares/uploadImages.middleware";
 
 export const usersRoutes: Router = Router();
 
@@ -18,6 +20,12 @@ usersRoutes.post(
   ensureDataIsValidMiddleware(userSchemaRequest),
   ensureEmailAndCpfIsUniqueMiddlware,
   createUserController
+);
+
+usersRoutes.patch(
+  "/profile/image",
+  upload.single("image"),
+  createUserProfileImageController
 );
 
 usersRoutes.get("/info", ensureIsAuthMiddleware, listUserInfosController);
