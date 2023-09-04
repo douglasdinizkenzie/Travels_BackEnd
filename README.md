@@ -26,7 +26,7 @@ Um pouco das tecnologias que foram utilizadas no projeto:
 
 ---
 
-## 4 - Instalação e uso
+## 3 - Instalação e uso
 
 ### Requisitos:
 - [NodeJS](https://nodejs.org/en/)
@@ -72,7 +72,7 @@ npm run dev
 #### As requisições podem ser testadas em programas como o [Insomnia](https://insomnia.rest/download), [Postman](https://www.postman.com), etc!
 ---
 
-## 5 - Endpoints
+## 4 - Endpoints
 
 | Método   | Rota       | Descrição                                      |
 |----------|------------|------------------------------                  |
