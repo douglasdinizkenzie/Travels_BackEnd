@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import {
+  users,
   usersRequest,
   usersRequestUpdate,
   usersResponse,
@@ -10,6 +11,7 @@ import { listUserInfosService } from "../services/users/listUserInfos.service";
 import { editUserService } from "../services/users/editUser.service";
 import { deleteUserService } from "../services/users/deleteUser.service";
 import { listAllUsersService } from "../services/users/listAllUsers.service";
+import { createUserProfileImageService } from "../services/users/createUserProfileImage.service";
 
 export const createUserController = async (
   req: Request,
@@ -24,13 +26,16 @@ export const createUserProfileImageController = async (
   req: Request,
   res: Response
 ) => {
-  console.log(req.file);
-  if (req.file) {
-    return res.status(200).json({ mensagem: "formato aceito" });
+  const userUpload: Express.Multer.File | undefined = req.file;
+  const userUUID: string = res.locals.userId;
+
+  if (userUpload) {
+    const newUser = await createUserProfileImageService(userUpload, userUUID);
+    return res.status(200).json(newUser);
   }
-  if (!req.file) {
+  if (!userUpload) {
     return res.status(401).json({
-      mensagem: "formato não aceito",
+      Message: "Unsupported format, try JPG, JPEG or PNG.",
     });
   }
 };
