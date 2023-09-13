@@ -24,8 +24,8 @@ usersRoutes.post(
 
 usersRoutes.patch(
   "/profile/image",
-  upload.single("image"),
   ensureIsAuthMiddleware,
+  upload.single("image"),
   createUserProfileImageController
 );
 

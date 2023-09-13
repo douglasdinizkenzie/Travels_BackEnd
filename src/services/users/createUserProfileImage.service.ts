@@ -4,6 +4,7 @@ import { users } from "../../interfaces/users.interfaces";
 import prisma from "../../database/prismaClient";
 import { userSchemaResponse } from "../../schemas/user.schema";
 import { unlink } from "fs";
+import { destroyImageInCloudinary } from "../../utils/cloudinary/destroyImageInCloudinary";
 
 export const createUserProfileImageService = async (
   uploadImage: Express.Multer.File,
@@ -12,23 +13,8 @@ export const createUserProfileImageService = async (
   const user: users | undefined | null = await prisma.user.findFirst({
     where: { uuid: userUUID },
   });
-  const imageURL: string | undefined | null = user?.image;
 
-  if (imageURL) {
-    const imageIdCloudnary: string = imageURL.split("/").pop()!.split(".")[0];
-    await cloudinary.uploader.destroy(
-      imageIdCloudnary,
-      { resource_type: "image" },
-      (error, result) => {
-        console.log(error);
-      }
-    );
-
-    await prisma.user.update({
-      where: { uuid: userUUID },
-      data: { image: null },
-    });
-  }
+  await destroyImageInCloudinary(user?.image, userUUID);
 
   const urlImage = await cloudinary.uploader.upload(
     uploadImage.path,

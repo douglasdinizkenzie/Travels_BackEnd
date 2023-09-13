@@ -18,6 +18,7 @@ export const userSchemaRequest = userSchema.omit({
   uuid: true,
   createdAt: true,
   updatedAt: true,
+  image: true,
 });
 
 export const userSchemaResponse = userSchema
