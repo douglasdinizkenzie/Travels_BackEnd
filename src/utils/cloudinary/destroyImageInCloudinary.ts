@@ -6,9 +6,9 @@ export const destroyImageInCloudinary = async (
   userUUID: string
 ): Promise<void> => {
   if (imageURL) {
-    const imageIdCloudnary: string = imageURL.split("/").pop()!.split(".")[0];
+    const imageIdCloudinary: string = imageURL.split("/").pop()!.split(".")[0];
     await cloudinary.uploader.destroy(
-      imageIdCloudnary,
+      imageIdCloudinary,
       { resource_type: "image" },
       (error, result) => {
         console.log(error);
