@@ -21,6 +21,8 @@ Um pouco das tecnologias que foram utilizadas no projeto:
 - [NodeJS](https://nodejs.org/en/)
 - [Express](https://expressjs.com/pt-br/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [Multer](https://www.npmjs.com/package/multer)
+- [Cloudinary](https://cloudinary.com)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Prisma](https://www.prisma.io/docs)
 - [Zod](https://zod.dev/?id=table-of-contents)
@@ -56,6 +58,9 @@ env.example -> .env
 ```
 
 Configure as variáveis de ambiente com suas credenciais do Postgres e uma nova database da sua escolha.
+
+Atenção! para ter acesso ao seu `CLOUD_NAME`, `API_KEY` e `API_SECRET` no .env, você deverá ter uma conta no site [Cloudinary](https://cloudinary.com). É bem fácil, basta clicar em `Sign up for free` e depois em `Sign up with google`, feito isso, você será direcionado à uma página onde possui as informações para inserir no .env. 
+
 
 Execute as migrations com o comando:
 
