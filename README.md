@@ -85,13 +85,15 @@ npm run dev
 
 ## 5 - Endpoints
 
-| Método | Rota        | Descrição                            |
-| ------ | ----------- | ------------------------------------ |
-| POST   | /users      | Cria Usuários.                       |
-| PATCH  | /users      | Modifica Usuários.                   |
-| GET    | /users/info | Lista informações do usuário logado. |
-| POST   | /address/id | Cadastra um endereço para o usuário. |
-| POST   | /login      | Loga o usuário na aplicação.         |
+| Método | Rota                  | Descrição                                            |
+| ------ | --------------------- | ------------------------------------                 |
+| POST   | /users                | Cria Usuários.                                       |
+| PATCH  | /users                | Modifica Usuários.                                   |
+| GET    | /users/info           | Lista informações do usuário logado.                 |
+| GET    | /users                | Lista todos os usuários.                             |
+| PATCH  | /users/profile/image  | Armazena imagem de perfil por arquivo no Cloudinary  | 
+| POST   | /address/id           | Cadastra um endereço para o usuário.                 |
+| POST   | /login                | Loga o usuário na aplicação.                         |
 
 ---
 
@@ -235,6 +237,143 @@ npm run dev
   }
 }
 ```
+
+---
+
+### Listar todos os usuários
+### `/users`
+
+#### Não é necessário um corpo para requisição.
+
+#### Necessário Bearer token.
+
+`Query Params:` 
+- name: Filtra usuários com o nome fornecido, não é necessário ser o nome completo.
+- offset: Define o índice inicial para a páginação.
+- limit: Define quantos usuários você deseja buscar por páginação.
+
+
+
+Todos os querys params são opcionais. Exemplo de requisição: `localhost:3001/users?name=tes&limit=5&offset=5`
+
+Caso nenhum query params seja fornecido, offset terá o valor 0 e limit terá o valor 5.
+
+
+### Retorno esperado
+
+**STATUS 200**
+
+```json
+{
+	"nextUrl": "/users?name=tes&limit=5&offset=5",
+	"previousUrl": null,
+	"limit": 5,
+	"offset": 0,
+	"total": 12,
+	"users": [
+		{
+			"uuid": "1b0c82a2-a167-4dad-b688-18bd0525d37",
+			"name": "teste 4",
+			"image": null,
+			"email": "teste4@gmail.com",
+			"cpf": "12345678901237",
+			"phone": null,
+			"date_of_birth": "19/09/2000",
+			"description": null,
+			"createdAt": "2023-08-31T18:44:01.886Z",
+			"updatedAt": "2023-08-31T18:44:01.886Z",
+			"address": null
+		},
+		{
+			"uuid": "1daa0b1d-5bb3-4d2e-93a2-30bfc8e0287",
+			"name": "teste 2",
+			"image": null,
+			"email": "teste2@gmail.com",
+			"cpf": "12345678901235",
+			"phone": null,
+			"date_of_birth": "19/09/2000",
+			"description": null,
+			"createdAt": "2023-08-31T18:43:42.612Z",
+			"updatedAt": "2023-08-31T18:43:42.612Z",
+			"address": null
+		},
+		{
+			"uuid": "1dd63d89-2d1f-441d-abcf-095fa13df04",
+			"name": "teste 11",
+			"image": null,
+			"email": "teste11@gmail.com",
+			"cpf": "12345678901250",
+			"phone": null,
+			"date_of_birth": "19/09/2000",
+			"description": null,
+			"createdAt": "2023-08-31T18:45:23.338Z",
+			"updatedAt": "2023-08-31T18:45:23.338Z",
+			"address": null
+		},
+		{
+			"uuid": "2eddfcdc-24f8-42fa-9dd5-7c47563ca0f5",
+			"name": "teste 7",
+			"image": null,
+			"email": "teste7@gmail.com",
+			"cpf": "12345678901230",
+			"phone": null,
+			"date_of_birth": "19/09/2000",
+			"description": null,
+			"createdAt": "2023-08-31T18:44:32.532Z",
+			"updatedAt": "2023-08-31T18:44:32.532Z",
+			"address": null
+		},
+		{
+			"uuid": "23122b9e-d57a-4b06-85e1-5383faf4698",
+			"name": "usuario",
+			"image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1694716567/s52wouhrjqqtmpugyqsm.png",
+			"email": "email@gmail.com",
+			"cpf": "000.000.000-00",
+			"phone": null,
+			"date_of_birth": "19/09/2000",
+			"description": null,
+			"createdAt": "2023-09-14T18:27:45.187Z",
+			"updatedAt": "2023-09-14T18:35:08.980Z",
+			"address": null
+		}
+	]
+}
+```
+
+---
+
+## Armazena imagem de perfil por arquivo
+## `/users/profile/image`
+
+
+#### Necessário Bearer token.
+
+Multipart form
+
+FildName precisa ser `profile`
+
+#### Só serão aceitos formatos JPG, JPEG OU PNG.
+
+### Retorno esperado
+
+**STATUS 200**
+
+```json
+{
+	"uuid": "23122b9e-d57a-4b06-85e1-5383faf4698",
+	"name": "usuario",
+	"image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1694716567/s52wouhrjqqtmpugyqsm.png",
+	"email": "email@gmail.com",
+	"cpf": "000.000.000-00",
+	"phone": null,
+	"date_of_birth": "19/09/2000",
+	"description": null,
+	"createdAt": "2023-09-14T18:27:45.187Z",
+	"updatedAt": "2023-09-14T18:35:08.980Z",
+	"address": null
+}
+```
+
 
 ---
 
