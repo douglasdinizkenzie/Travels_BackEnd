@@ -51,17 +51,21 @@ model Posts {
   author_uuid String
   comments    PostComments[]
   likes       PostLikes[]
+  createdAt   DateTime       @default(now()) @db.Timestamp(0)
+  updatedAt   DateTime?      @updatedAt
 
   @@map("posts")
 }
 
 model PostComments {
-  uuid        String @id @default(uuid())
-  comment     String @db.Text()
-  author      User   @relation(fields: [author_uuid], references: [uuid], onDelete: Cascade)
+  uuid        String    @id @default(uuid())
+  comment     String    @db.Text()
+  author      User      @relation(fields: [author_uuid], references: [uuid], onDelete: Cascade)
   author_uuid String
-  post        Posts  @relation(fields: [post_uuid], references: [uuid], onDelete: Cascade)
+  post        Posts     @relation(fields: [post_uuid], references: [uuid], onDelete: Cascade)
   post_uuid   String
+  createdAt   DateTime  @default(now()) @db.Timestamp(0)
+  updatedAt   DateTime? @updatedAt
 
   @@map("post_comments")
 }
