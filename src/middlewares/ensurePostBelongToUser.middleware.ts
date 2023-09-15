@@ -8,7 +8,7 @@ export const ensurePostBelongToUserMiddleware = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const userUUID: string = res.locals.userId;
+  const userUUID: string = res.locals.userUUID;
   const postUUID: string = req.params.uuid;
 
   const post: posts | null = await prisma.posts.findFirst({

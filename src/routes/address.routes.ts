@@ -8,7 +8,7 @@ import { ensureUserExistsMiddleware } from "../middlewares/ensureUserExists.midd
 export const addressRoutes: Router = Router();
 
 addressRoutes.post(
-  "/:id",
+  "/:uuid",
   ensureUserExistsMiddleware,
   ensureDataIsValidMiddleware(addressSchemaRequest),
   ensureAlreadyHasAddressMiddleware,

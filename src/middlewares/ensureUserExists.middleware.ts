@@ -8,7 +8,7 @@ export const ensureUserExistsMiddleware = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const idParams: string = req.params.id;
+  const idParams: string = req.params.uuid;
   const user: users | null = await prisma.user.findFirst({
     where: { uuid: idParams },
   });

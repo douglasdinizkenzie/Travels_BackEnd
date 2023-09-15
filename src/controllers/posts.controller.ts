@@ -11,7 +11,7 @@ export const createPostsController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const userUUID: string = res.locals.userId;
+  const userUUID: string = res.locals.userUUID;
   const dataPost: postsRequest = req.body;
 
   const newPost: posts = await createPostService(userUUID, dataPost);

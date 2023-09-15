@@ -7,7 +7,7 @@ export const createAddressController = async (
   res: Response
 ): Promise<Response> => {
   const data: addressRequest = req.body;
-  const id: string = req.params.id;
-  const newAddress: address = await createAddressService(data, id);
+  const uuid: string = req.params.uuid;
+  const newAddress: address = await createAddressService(data, uuid);
   return res.status(201).json(newAddress);
 };
