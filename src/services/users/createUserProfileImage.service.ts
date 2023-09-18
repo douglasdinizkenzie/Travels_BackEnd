@@ -37,7 +37,9 @@ export const createUserProfileImageService = async (
   });
 
   unlink(uploadImage.path, (err) => {
-    console.log(err);
+    if (err) {
+      console.log(err);
+    }
   });
 
   return userSchemaResponse.parse(newUser);

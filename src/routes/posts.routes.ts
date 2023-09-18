@@ -8,6 +8,7 @@ import {
 import {
   createPostImageController,
   createPostsController,
+  deletePostController,
   editPostController,
 } from "../controllers/posts.controller";
 import { ensurePostExistsMiddleware } from "../middlewares/ensurePostExists.middleware";
@@ -38,4 +39,11 @@ postRoutes.patch(
   ensurePostBelongToUserMiddleware,
   upload.single("post"),
   createPostImageController
+);
+
+postRoutes.delete(
+  "/:uuid",
+  ensurePostExistsMiddleware,
+  ensurePostBelongToUserMiddleware,
+  deletePostController
 );

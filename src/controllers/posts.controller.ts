@@ -8,6 +8,7 @@ import { createPostService } from "../services/posts/createPost.service";
 import { editPostService } from "../services/posts/editPost.service";
 import AppError from "../errors/app.Error";
 import { createPostImageService } from "../services/posts/createPostImage.service";
+import { deletePostService } from "../services/posts/deletePost.service";
 
 export const createPostsController = async (
   req: Request,
@@ -48,4 +49,13 @@ export const createPostImageController = async (
       Message: "Unsupported format, try JPG, JPEG or PNG.",
     });
   }
+};
+
+export const deletePostController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const postUUID: string = req.params.uuid;
+  await deletePostService(postUUID);
+  return res.status(204).json();
 };
