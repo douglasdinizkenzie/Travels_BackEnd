@@ -6,11 +6,13 @@ import {
   postsSchemaRequestUpdate,
 } from "../schemas/posts.schemas";
 import {
+  createPostImageController,
   createPostsController,
   editPostController,
 } from "../controllers/posts.controller";
 import { ensurePostExistsMiddleware } from "../middlewares/ensurePostExists.middleware";
 import { ensurePostBelongToUserMiddleware } from "../middlewares/ensurePostBelongToUser.middleware";
+import { upload } from "../middlewares/uploadImages.middleware";
 
 export const postRoutes: Router = Router();
 
@@ -28,4 +30,12 @@ postRoutes.patch(
   ensurePostExistsMiddleware,
   ensurePostBelongToUserMiddleware,
   editPostController
+);
+
+postRoutes.patch(
+  "/image/:uuid",
+  ensurePostExistsMiddleware,
+  ensurePostBelongToUserMiddleware,
+  upload.single("post"),
+  createPostImageController
 );

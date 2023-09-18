@@ -32,8 +32,7 @@ export const createUserProfileImageController = async (
   if (userUpload) {
     const newUser = await createUserProfileImageService(userUpload, userUUID);
     return res.status(200).json(newUser);
-  }
-  if (!userUpload) {
+  } else {
     return res.status(401).json({
       Message: "Unsupported format, try JPG, JPEG or PNG.",
     });
