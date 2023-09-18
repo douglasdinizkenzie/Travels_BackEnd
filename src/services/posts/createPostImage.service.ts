@@ -3,6 +3,7 @@ import cloudinary from "../../cloudnaryConfig";
 import prisma from "../../database/prismaClient";
 import { postsSchema } from "../../schemas/posts.schemas";
 import { destroyImageInCloudinary } from "../../utils/cloudinary/destroyImageInCloudinary";
+import { unlink } from "fs";
 
 export const createPostImageService = async (
   postUUID: string,
@@ -33,6 +34,12 @@ export const createPostImageService = async (
     where: { uuid: postUUID },
     data: { image: imageURL.secure_url },
     include: { author: true },
+  });
+
+  unlink(image.path, (err) => {
+    if (err) {
+      console.log(err);
+    }
   });
 
   return postsSchema.parse(postWithImage);
