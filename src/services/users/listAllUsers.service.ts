@@ -5,7 +5,7 @@ import {
   usersResponsePaginated,
 } from "../../interfaces/users.interfaces";
 import { userSchemaResponseArray } from "../../schemas/user.schema";
-import { handlePaginationListAllUsers } from "../../utils/pagination/handlePagination";
+import { handlePaginationListAllUsers } from "../../utils/pagination/handlePaginationListAllUsers";
 
 export const listAllUsersService = async (
   limit: any,

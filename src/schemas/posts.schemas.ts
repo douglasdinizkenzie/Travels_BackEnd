@@ -21,3 +21,5 @@ export const postsSchemaRequest = postsSchema.omit({
 });
 
 export const postsSchemaRequestUpdate = postsSchemaRequest.deepPartial();
+
+export const postsSchemaArray = postsSchema.array();

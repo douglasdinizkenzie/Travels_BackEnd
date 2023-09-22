@@ -10,6 +10,7 @@ import {
   createPostsController,
   deletePostController,
   editPostController,
+  listAllPostUserController,
 } from "../controllers/posts.controller";
 import { ensurePostExistsMiddleware } from "../middlewares/ensurePostExists.middleware";
 import { ensurePostBelongToUserMiddleware } from "../middlewares/ensurePostBelongToUser.middleware";
@@ -47,3 +48,5 @@ postRoutes.delete(
   ensurePostBelongToUserMiddleware,
   deletePostController
 );
+
+postRoutes.get("/user", listAllPostUserController);
