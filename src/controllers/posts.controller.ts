@@ -3,12 +3,14 @@ import {
   posts,
   postsRequest,
   postsRequestUpdate,
+  postsResponseArrayPaginated,
 } from "../interfaces/posts.interface";
 import { createPostService } from "../services/posts/createPost.service";
 import { editPostService } from "../services/posts/editPost.service";
 import { createPostImageService } from "../services/posts/createPostImage.service";
 import { deletePostService } from "../services/posts/deletePost.service";
 import { listAllPostUserService } from "../services/posts/listAllPostUser.service";
+import { listAllPostsService } from "../services/posts/listAllPosts.service";
 
 export const createPostsController = async (
   req: Request,
@@ -69,5 +71,15 @@ export const listAllPostUserController = async (
 
   const posts = await listAllPostUserService(limit, offset, userUUID);
 
+  return res.status(200).json(posts);
+};
+
+export const listAllPostsController = async (req: Request, res: Response) => {
+  const { limit, offset } = req.query;
+
+  const posts: postsResponseArrayPaginated = await listAllPostsService(
+    limit,
+    offset
+  );
   return res.status(200).json(posts);
 };
