@@ -67,7 +67,7 @@ export const listAllPostUserController = async (
   res: Response
 ): Promise<Response> => {
   const { limit, offset } = req.query;
-  const userUUID: string = res.locals.userUUID;
+  const userUUID: string = req.params.uuid;
 
   const posts = await listAllPostUserService(limit, offset, userUUID);
 
