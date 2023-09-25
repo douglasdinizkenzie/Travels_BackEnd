@@ -97,8 +97,9 @@ npm run dev
 | GET    | /users/info           | Lista informações do usuário logado.                 |
 | GET    | /users                | Lista todos os usuários.                             |
 | PATCH  | /users/profile/image  | Armazena imagem de perfil por arquivo no Cloudinary  | 
-| POST   | /address/id           | Cadastra um endereço para o usuário.                 |
+| POST   | /address/uuid         | Cadastra um endereço para o usuário.                 |
 | POST   | /login                | Loga o usuário na aplicação.                         |
+| GET    | /posts/uuid	  	 | Lista todos os posts de um usuário.			|
 
 ---
 
@@ -174,9 +175,9 @@ npm run dev
 
 ### Cadastrar endereço para usuário.
 
-### `/address/id`
+### `/address/uuid`
 
-#### Necessário fornecer id do usuário
+#### Necessário fornecer uuid do usuário
 
 ### Requisição
 
@@ -402,6 +403,102 @@ FildName precisa ser `profile`
 ```json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsQGdtYWlsLmNvbSIsImlhdCI6MTY5MjY0MTMyOSwiZXhwIjoxNjkyNzI3NzI5LCJzdWIiOiI3Nzk2Y2JjMy01ZDI0LTQ3M2ItOTM5MC0yM2Q0N2JiYzM2YjUifQ.VXCgaFen5Ur6-mj_9SGBxetJQSvavZ553W5XwMvWB"
+}
+```
+
+---
+
+## Lista todos os posts de um usuário
+## `/posts/uuid`
+
+#### Necessário Bearer token.
+
+`Query Params:` 
+- offset: Define o índice inicial para a páginação.
+- limit: Define quantos posts você deseja buscar por páginação.
+
+
+Todos os querys params são opcionais. Exemplo de requisição: `http://localhost:3001/posts/fd14c75b-8303-499a-b6ef-3d2598474121?offset=0&limit=3`
+
+Caso nenhum query params seja fornecido, offset terá o valor 0 e limit terá o valor 5.
+
+#### Não é necessário corpo para essa requisição.
+
+### Retorno esperado
+**STATUS 200**
+
+```json
+{
+  "nextUrl": "/posts/user?offset=3&limit=3",
+  "previousUrl": null,
+  "Total": 28,
+  "limit": 3,
+  "offset": 0,
+  "posts": [
+    {
+      "uuid": "0c6ddb09-5ef6-4d0b-89ee-87e3a47deba9",
+      "post": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis imperdiet a leo eget fermentum. Vivamus suscipit blandit condimentum. Mauris id gravida metus. Curabitur dictum sed dui ut facilisis. Etiam sit amet vehicula quam, vitae pharetra metus. Praesent sollicitudin porttitor ullamcorper. Maecenas tristique lectus vitae tortor porttitor tristique. Aliquam eu odio augue. Fusce aliquam arcu vitae pretium gravida.",
+      "image": null,
+      "author_uuid": "fd14c75b-8303-499a-b6ef-3d2598474121",
+      "createdAt": "2023-09-22T19:07:04.000Z",
+      "updatedAt": "2023-09-22T19:07:04.433Z",
+      "author": {
+        "uuid": "fd14c75b-8303-499a-b6ef-3d2598474121",
+        "name": "Marquinhos",
+        "image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1695062377/lon0lsou7pqfdxvo4q34.jpg",
+        "email": "marquinhos@gmail.com",
+        "cpf": "000.000.000-00",
+        "phone": null,
+        "date_of_birth": "19/09/2000",
+        "description": null,
+        "password": "$2a$10$QnpNAasQKWMLsMZ8VcMQt.99wTQl.Fo6RuuqGFephsiqt/5bopfn2",
+        "createdAt": "2023-09-18T18:36:28.228Z",
+        "updatedAt": "2023-09-18T18:39:37.599Z"
+      }
+    },
+    {
+      "uuid": "1baae4cc-ca83-47dd-9be7-08b03bf3f937",
+      "post": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis imperdiet a leo eget fermentum. Vivamus suscipit blandit condimentum. Mauris id gravida metus. Curabitur dictum sed dui ut facilisis. Etiam sit amet vehicula quam, vitae pharetra metus. Praesent sollicitudin porttitor ullamcorper. Maecenas tristique lectus vitae tortor porttitor tristique. Aliquam eu odio augue. Fusce aliquam arcu vitae pretium gravida.",
+      "image": null,
+      "author_uuid": "fd14c75b-8303-499a-b6ef-3d2598474121",
+      "createdAt": "2023-09-22T19:07:04.000Z",
+      "updatedAt": "2023-09-22T19:07:04.115Z",
+      "author": {
+        "uuid": "fd14c75b-8303-499a-b6ef-3d2598474121",
+        "name": "Marquinhos",
+        "image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1695062377/lon0lsou7pqfdxvo4q34.jpg",
+        "email": "marquinhos@gmail.com",
+        "cpf": "000.000.000-00",
+        "phone": null,
+        "date_of_birth": "19/09/2000",
+        "description": null,
+        "password": "$2a$10$QnpNAasQKWMLsMZ8VcMQt.99wTQl.Fo6RuuqGFephsiqt/5bopfn2",
+        "createdAt": "2023-09-18T18:36:28.228Z",
+        "updatedAt": "2023-09-18T18:39:37.599Z"
+      }
+    },
+    {
+      "uuid": "21ba6f14-c824-4aa0-9eec-10d6c54d38ba",
+      "post": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis imperdiet a leo eget fermentum. Vivamus suscipit blandit condimentum. Mauris id gravida metus. Curabitur dictum sed dui ut facilisis.",
+      "image": null,
+      "author_uuid": "fd14c75b-8303-499a-b6ef-3d2598474121",
+      "createdAt": "2023-09-22T19:07:06.000Z",
+      "updatedAt": "2023-09-22T19:07:05.768Z",
+      "author": {
+        "uuid": "fd14c75b-8303-499a-b6ef-3d2598474121",
+        "name": "Marquinhos",
+        "image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1695062377/lon0lsou7pqfdxvo4q34.jpg",
+        "email": "marquinhos@gmail.com",
+        "cpf": "000.000.000-00",
+        "phone": null,
+        "date_of_birth": "19/09/2000",
+        "description": null,
+        "password": "$2a$10$QnpNAasQKWMLsMZ8VcMQt.99wTQl.Fo6RuuqGFephsiqt/5bopfn2",
+        "createdAt": "2023-09-18T18:36:28.228Z",
+        "updatedAt": "2023-09-18T18:39:37.599Z"
+      }
+    }
+  ]
 }
 ```
 
