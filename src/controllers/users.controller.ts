@@ -27,13 +27,12 @@ export const createUserProfileImageController = async (
   res: Response
 ) => {
   const userUpload: Express.Multer.File | undefined = req.file;
-  const userUUID: string = res.locals.userId;
+  const userUUID: string = res.locals.userUUID;
 
   if (userUpload) {
     const newUser = await createUserProfileImageService(userUpload, userUUID);
     return res.status(200).json(newUser);
-  }
-  if (!userUpload) {
+  } else {
     return res.status(401).json({
       Message: "Unsupported format, try JPG, JPEG or PNG.",
     });
@@ -44,8 +43,8 @@ export const listUserInfosController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const userId: string = res.locals.userId;
-  const userInfos: usersResponse = await listUserInfosService(userId);
+  const userUUID: string = res.locals.userUUID;
+  const userInfos: usersResponse = await listUserInfosService(userUUID);
 
   return res.status(200).json(userInfos);
 };
@@ -72,8 +71,8 @@ export const editUserController = async (
   res: Response
 ): Promise<Response> => {
   const data: usersRequestUpdate = req.body;
-  const userId: string = res.locals.userId;
-  const user: usersResponse = await editUserService(data, userId);
+  const userUUID: string = res.locals.userUUID;
+  const user: usersResponse = await editUserService(data, userUUID);
   return res.status(200).json(user);
 };
 
@@ -81,7 +80,7 @@ export const deleteUserController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const userId: string = res.locals.userId;
-  await deleteUserService(userId);
+  const userUUID: string = res.locals.userUUID;
+  await deleteUserService(userUUID);
   return res.status(204).json();
 };

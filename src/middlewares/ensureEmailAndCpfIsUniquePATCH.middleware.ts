@@ -17,7 +17,7 @@ export const ensureEmailAndCpfIsUniqueMiddlware = async (
     const userFound: users | undefined | null = await prisma.user.findFirst({
       where: { [field]: value },
     });
-    if (userFound && userFound.uuid !== res.locals.userId) {
+    if (userFound && userFound.uuid !== res.locals.userUUID) {
       throw new AppError(`${field} already exist`, 409);
     }
   };

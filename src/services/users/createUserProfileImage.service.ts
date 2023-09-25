@@ -14,7 +14,12 @@ export const createUserProfileImageService = async (
     where: { uuid: userUUID },
   });
 
-  await destroyImageInCloudinary(user?.image, userUUID);
+  await destroyImageInCloudinary(user?.image);
+
+  await prisma.user.update({
+    where: { uuid: userUUID },
+    data: { image: null },
+  });
 
   const urlImage = await cloudinary.uploader.upload(
     uploadImage.path,
@@ -32,7 +37,9 @@ export const createUserProfileImageService = async (
   });
 
   unlink(uploadImage.path, (err) => {
-    console.log(err);
+    if (err) {
+      console.log(err);
+    }
   });
 
   return userSchemaResponse.parse(newUser);

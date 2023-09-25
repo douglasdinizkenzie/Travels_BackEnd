@@ -1,9 +1,7 @@
 import cloudinary from "../../cloudnaryConfig";
-import prisma from "../../database/prismaClient";
 
 export const destroyImageInCloudinary = async (
-  imageURL: string | undefined | null,
-  userUUID: string
+  imageURL: string | undefined | null
 ): Promise<void> => {
   if (imageURL) {
     const imageIdCloudinary: string = imageURL.split("/").pop()!.split(".")[0];
@@ -14,11 +12,6 @@ export const destroyImageInCloudinary = async (
         console.log(error);
       }
     );
-
-    await prisma.user.update({
-      where: { uuid: userUUID },
-      data: { image: null },
-    });
   }
 
   return;

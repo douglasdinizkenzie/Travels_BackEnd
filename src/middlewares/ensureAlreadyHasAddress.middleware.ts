@@ -8,9 +8,9 @@ export const ensureAlreadyHasAddressMiddleware = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const idUser: string = req.params.id;
+  const userUUID: string = req.params.uuid;
   const addressExist: address | null = await prisma.address.findFirst({
-    where: { user_uuid: idUser },
+    where: { user_uuid: userUUID },
   });
 
   if (addressExist) {

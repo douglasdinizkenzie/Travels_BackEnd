@@ -3,10 +3,10 @@ import { users, usersResponse } from "../../interfaces/users.interfaces";
 import { userSchemaResponse } from "../../schemas/user.schema";
 
 export const listUserInfosService = async (
-  userId: string
+  userUUID: string
 ): Promise<usersResponse> => {
   const user: users | undefined | null = await prisma.user.findFirst({
-    where: { uuid: userId },
+    where: { uuid: userUUID },
     include: { address: true },
   });
 

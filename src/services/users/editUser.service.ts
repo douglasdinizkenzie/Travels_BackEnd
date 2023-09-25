@@ -8,10 +8,10 @@ import { userSchemaResponse } from "../../schemas/user.schema";
 
 export const editUserService = async (
   dataRequest: usersRequestUpdate,
-  userId: string
+  userUUID: string
 ): Promise<usersResponse> => {
   const newUser: users = await prisma.user.update({
-    where: { uuid: userId },
+    where: { uuid: userUUID },
     data: { ...dataRequest },
     include: { address: true },
   });
