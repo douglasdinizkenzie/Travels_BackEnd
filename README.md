@@ -99,7 +99,7 @@ npm run dev
 | PATCH  | /users/profile/image  | Armazena imagem de perfil por arquivo no Cloudinary  | 
 | POST   | /address/uuid         | Cadastra um endereço para o usuário.                 |
 | POST   | /login                | Loga o usuário na aplicação.                         |
-| GET    | /posts/uuid	  	 | Lista todos os posts de um usuário.			|
+| GET    | /user/posts/uuid	 | Lista todos os posts de um usuário.			|
 
 ---
 
@@ -409,7 +409,7 @@ FildName precisa ser `profile`
 ---
 
 ## Lista todos os posts de um usuário
-## `/posts/uuid`
+## `/user/posts/uuid`
 
 #### Necessário Bearer token.
 
