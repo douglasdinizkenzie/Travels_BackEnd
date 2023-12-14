@@ -21,6 +21,8 @@ export const ensureIsAuthMiddleware = (
       throw new AppError(error.message, 401);
     }
 
+    
+
     res.locals.userUUID = decoded.sub;
 
     next();

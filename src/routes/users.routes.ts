@@ -12,6 +12,8 @@ import {
 import { ensureIsAuthMiddleware } from "../middlewares/ensureIsAuth.middleware";
 import { ensureEmailAndCpfIsUniqueMiddlware } from "../middlewares/ensureEmailAndCpfIsUniquePATCH.middleware";
 import { upload } from "../middlewares/uploadImages.middleware";
+import { listAllPostUserController } from "../controllers/posts.controller";
+import { ensureUserExistsMiddleware } from "../middlewares/ensureUserExists.middleware";
 
 export const usersRoutes: Router = Router();
 
@@ -29,7 +31,7 @@ usersRoutes.patch(
   createUserProfileImageController
 );
 
-usersRoutes.get("/info", ensureIsAuthMiddleware, listUserInfosController);
+usersRoutes.get("/infos", ensureIsAuthMiddleware, listUserInfosController);
 
 usersRoutes.get("", ensureIsAuthMiddleware, listAllUsersController);
 
@@ -42,3 +44,10 @@ usersRoutes.patch(
 );
 
 usersRoutes.delete("", ensureIsAuthMiddleware, deleteUserController);
+
+usersRoutes.get(
+  "/posts/:uuid",
+  ensureIsAuthMiddleware, 
+  ensureUserExistsMiddleware, 
+  listAllPostUserController,
+  );
