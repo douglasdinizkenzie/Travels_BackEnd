@@ -59,7 +59,7 @@ env.example -> .env
 
 Configure as variáveis de ambiente com suas credenciais do Postgres e uma nova database da sua escolha.
 
-Atenção! para ter acesso ao seu `CLOUD_NAME`, `API_KEY` e `API_SECRET` no .env, você deverá ter uma conta no site [Cloudinary](https://cloudinary.com). É bem fácil, basta clicar em `Sign up for free` e depois em `Sign up with google`, feito isso, você será direcionado à uma página onde possui as informações para inserir no .env. 
+Atenção! para ter acesso ao seu `CLOUD_NAME`, `API_KEY` e `API_SECRET` no .env, você deverá ter uma conta no site [Cloudinary](https://cloudinary.com). Basta clicar em `Sign up for free` e depois em `Sign up with google`, feito isso, você será direcionado à uma página onde possui as informações para inserir no .env. 
 
 
 Execute as migrations com o comando:
@@ -93,15 +93,17 @@ npm run dev
 | Método | Rota                  | Descrição                                            |
 | ------ | --------------------- | ------------------------------------                 |
 | POST   | /users                | Cria Usuários.                                       |
+| POST   | /login                | Loga o usuário na aplicação.                         |
 | PATCH  | /users                | Modifica Usuários.                                   |
+| POST   | /address/uuid         | Cadastra um endereço para o usuário.                 |
 | GET    | /users/info           | Lista informações do usuário logado.                 |
 | GET    | /users                | Lista todos os usuários.                             |
 | PATCH  | /users/profile/image  | Armazena imagem de perfil por arquivo no Cloudinary  | 
-| POST   | /address/uuid         | Cadastra um endereço para o usuário.                 |
-| POST   | /login                | Loga o usuário na aplicação.                         |
 | GET    | /user/posts/uuid	 | Lista todos os posts de um usuário.			|
 
 ---
+
+## POST
 
 ### Criar usuário.
 
@@ -113,11 +115,11 @@ npm run dev
 {
   "name": "teste",
   "email": "email@gmail.com",
-  "cpf": "12345678904554",
-  "date_of_birth": "19/09/2000",
-  "password": "123456",
+  "cpf": "12345-678",
+  "date_of_birth": "00/00/0000",
+  "password": "1234",
   "phone": "(00)00000-0000",
-  "description": "description"
+  "description": "Descricão"
 }
 ```
 
@@ -129,17 +131,51 @@ npm run dev
 
 ```json
 {
-  "uuid": "7796cbc3-5d24-473b-9390-23d47bbc36b5",
+  "uuid": "d9243a46-3e4f-4cd8-a201-859456388fff",
   "name": "teste",
-  "email": "email@gmail.com",
-  "cpf": "12345678904554",
-  "date_of_birth": "19/09/2000",
-  "phone": "(00)00000-0000",
-  "description": "description"
+  "image": null,
+  "email": "teste@gmail.com",
+  "cpf": "12345-678",
+  "phone": "(00)0000-0000",
+  "date_of_birth": "00/00/0000",
+  "description": "Descrição",
+  "createdAt": "2023-12-29T13:52:06.471Z",
+  "updatedAt": "2023-12-29T13:52:06.471Z"
 }
 ```
 
 ---
+
+## POST
+
+### Logar usuário na aplicação.
+
+### `/login`
+
+### Requisição
+
+```json
+{
+  "email": "teste@gmail.com",
+  "password": "1234"
+}
+```
+
+### Retorno esperado
+
+**STATUS 200**
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsQGdtYWlsLmNvbSIsImlhdCI6MTY5MjY0MTMyOSwiZXhwIjoxNjkyNzI3NzI5LCJzdWIiOiI3Nzk2Y2JjMy01ZDI0LTQ3M2ItOTM5MC0yM2Q0N2JiYzM2YjUifQ.VXCgaFen5Ur6-mj_9SGBxetJQSvavZ553W5XwMvWB"
+}
+```
+
+---
+
+
+
+## PATCH
 
 ### Modificar usuário.
 
@@ -161,17 +197,23 @@ npm run dev
 
 ```json
 {
-  "uuid": "7796cbc3-5d24-473b-9390-23d47bbc36b5",
+  "uuid": "d9243a46-3e4f-4cd8-a201-859456388fff",
   "name": "teste patch",
-  "email": "email@gmail.com",
-  "cpf": "12345678904554",
-  "date_of_birth": "19/09/2000",
-  "phone": "(00)00000-0000",
-  "description": "description"
+  "image": null,
+  "email": "teste@gmail.com",
+  "cpf": "12345-678",
+  "phone": "(00)0000-0000",
+  "date_of_birth": "00/00/0000",
+  "description": "Descrição",
+  "createdAt": "2023-12-29T13:52:06.471Z",
+  "updatedAt": "2023-12-29T13:59:48.689Z",
+  "address": null
 }
 ```
 
 ---
+
+## POST
 
 ### Cadastrar endereço para usuário.
 
@@ -195,24 +237,31 @@ npm run dev
 
 ```json
 {
-  "uuid": "2d1e9d36-efe4-4baf-8d28-26a944a556af",
+  "uuid": "cdc615ef-ad85-40da-afa5-c19adfb20e54",
   "cep": "01153-000",
   "state": "SP",
   "city": "São Paulo",
-  "user_uuid": "7796cbc3-5d24-473b-9390-23d47bbc36b5",
+  "user_uuid": "d9243a46-3e4f-4cd8-a201-859456388fff",
   "user": {
-    "uuid": "7796cbc3-5d24-473b-9390-23d47bbc36b5",
-    "name": "teste",
-    "email": "email@gmail.com",
-    "cpf": "12345678904554",
-    "phone": "(00)00000-0000",
-    "date_of_birth": "19/09/2000",
-    "description": "description"
-  }
+    "uuid": "d9243a46-3e4f-4cd8-a201-859456388fff",
+    "name": "teste patch",
+    "image": null,
+    "email": "teste@gmail.com",
+    "cpf": "12345-678",
+    "phone": "(00)0000-0000",
+    "date_of_birth": "00/00/0000",
+    "description": "Descrição",
+    "createdAt": "2023-12-29T13:52:06.471Z",
+    "updatedAt": "2023-12-29T13:59:48.689Z"
+  },
+  "createdAt": "2023-12-29T14:10:01.000Z",
+  "updatedAt": "2023-12-29T14:10:00.811Z"
 }
 ```
 
 ---
+
+## GET
 
 ### Listar informações do usuário logado.
 
@@ -228,15 +277,18 @@ npm run dev
 
 ```json
 {
-  "uuid": "7796cbc3-5d24-473b-9390-23d47bbc36b5",
-  "name": "teste",
-  "email": "email@gmail.com",
-  "cpf": "12345678904554",
-  "phone": "(00)00000-0000",
-  "date_of_birth": "19/09/2000",
-  "description": "description",
+  "uuid": "d9243a46-3e4f-4cd8-a201-859456388fff",
+  "name": "teste patch",
+  "image": null,
+  "email": "teste@gmail.com",
+  "cpf": "12345-678",
+  "phone": "(00)0000-0000",
+  "date_of_birth": "00/00/0000",
+  "description": "Descrição",
+  "createdAt": "2023-12-29T13:52:06.471Z",
+  "updatedAt": "2023-12-29T13:59:48.689Z",
   "address": {
-    "uuid": "2d1e9d36-efe4-4baf-8d28-26a944a556af",
+    "uuid": "cdc615ef-ad85-40da-afa5-c19adfb20e54",
     "cep": "01153-000",
     "state": "SP",
     "city": "São Paulo"
@@ -245,6 +297,8 @@ npm run dev
 ```
 
 ---
+
+## GET
 
 ### Listar todos os usuários
 ### `/users`
@@ -271,75 +325,75 @@ Caso nenhum query params seja fornecido, offset terá o valor 0 e limit terá o 
 
 ```json
 {
-	"nextUrl": "/users?name=tes&limit=5&offset=5",
+	"nextUrl": "/users?limit=5&offset=5",
 	"previousUrl": null,
 	"limit": 5,
 	"offset": 0,
-	"total": 12,
+	"total": 10,
 	"users": [
 		{
-			"uuid": "1b0c82a2-a167-4dad-b688-18bd0525d37",
-			"name": "teste 4",
+			"uuid": "191d95a3-b5fc-401a-923f-517649ef4093",
+			"name": "Daniel",
 			"image": null,
-			"email": "teste4@gmail.com",
-			"cpf": "12345678901237",
-			"phone": null,
-			"date_of_birth": "19/09/2000",
-			"description": null,
-			"createdAt": "2023-08-31T18:44:01.886Z",
-			"updatedAt": "2023-08-31T18:44:01.886Z",
+			"email": "daniel@gmail.com",
+			"cpf": "29148-728",
+			"phone": "(00)0000-0000",
+			"date_of_birth": "00/00/0000",
+			"description": "Descrição",
+			"createdAt": "2023-11-29T18:41:56.450Z",
+			"updatedAt": "2023-11-29T18:41:56.450Z",
 			"address": null
 		},
 		{
-			"uuid": "1daa0b1d-5bb3-4d2e-93a2-30bfc8e0287",
-			"name": "teste 2",
+			"uuid": "392dcd63-a3e5-48e0-9d30-bfb1f7d86e91",
+			"name": "juuj",
 			"image": null,
-			"email": "teste2@gmail.com",
-			"cpf": "12345678901235",
-			"phone": null,
-			"date_of_birth": "19/09/2000",
-			"description": null,
-			"createdAt": "2023-08-31T18:43:42.612Z",
-			"updatedAt": "2023-08-31T18:43:42.612Z",
+			"email": "juuj@gmail.com",
+			"cpf": "29148-729",
+			"phone": "(00)0000-0000",
+			"date_of_birth": "00/00/0000",
+			"description": "Descrição",
+			"createdAt": "2023-11-29T18:42:11.928Z",
+			"updatedAt": "2023-11-29T18:42:11.928Z",
 			"address": null
 		},
 		{
-			"uuid": "1dd63d89-2d1f-441d-abcf-095fa13df04",
-			"name": "teste 11",
-			"image": null,
-			"email": "teste11@gmail.com",
-			"cpf": "12345678901250",
-			"phone": null,
-			"date_of_birth": "19/09/2000",
-			"description": null,
-			"createdAt": "2023-08-31T18:45:23.338Z",
-			"updatedAt": "2023-08-31T18:45:23.338Z",
+			"uuid": "6d073b99-8bee-4e4d-8c86-293e90343acb",
+			"name": "Marquinhos",
+			"image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1702580959/iyp0rv2lfpofykoji6j5.png",
+			"email": "marquinhos@gmail.com",
+			"cpf": "29148-725",
+			"phone": "(00)0000-0000",
+			"date_of_birth": "00/00/0000",
+			"description": "Descrição",
+			"createdAt": "2023-11-29T18:11:48.479Z",
+			"updatedAt": "2023-12-14T19:09:20.449Z",
 			"address": null
 		},
 		{
-			"uuid": "2eddfcdc-24f8-42fa-9dd5-7c47563ca0f5",
-			"name": "teste 7",
+			"uuid": "86e26a19-435c-4ecf-8f53-4cc55b6d9d98",
+			"name": "Douglas",
 			"image": null,
-			"email": "teste7@gmail.com",
-			"cpf": "12345678901230",
-			"phone": null,
-			"date_of_birth": "19/09/2000",
-			"description": null,
-			"createdAt": "2023-08-31T18:44:32.532Z",
-			"updatedAt": "2023-08-31T18:44:32.532Z",
+			"email": "douglas@gmail.com",
+			"cpf": "29148-726",
+			"phone": "(00)0000-0000",
+			"date_of_birth": "00/00/0000",
+			"description": "Descrição",
+			"createdAt": "2023-11-29T18:41:29.296Z",
+			"updatedAt": "2023-11-29T18:41:29.296Z",
 			"address": null
 		},
 		{
-			"uuid": "23122b9e-d57a-4b06-85e1-5383faf4698",
-			"name": "usuario",
-			"image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1694716567/s52wouhrjqqtmpugyqsm.png",
-			"email": "email@gmail.com",
-			"cpf": "000.000.000-00",
-			"phone": null,
-			"date_of_birth": "19/09/2000",
-			"description": null,
-			"createdAt": "2023-09-14T18:27:45.187Z",
-			"updatedAt": "2023-09-14T18:35:08.980Z",
+			"uuid": "88bae1f3-1c21-4441-8ed2-bcc8f97dfc6c",
+			"name": "matheus",
+			"image": null,
+			"email": "matheus@gmail.com",
+			"cpf": "29148-741",
+			"phone": "(00)0000-0000",
+			"date_of_birth": "00/00/0000",
+			"description": "Descrição",
+			"createdAt": "2023-11-29T18:43:14.585Z",
+			"updatedAt": "2023-11-29T18:43:14.585Z",
 			"address": null
 		}
 	]
@@ -383,30 +437,6 @@ FildName precisa ser `profile`
 
 ---
 
-### Logar usuário na aplicação.
-
-### `/login`
-
-### Requisição
-
-```json
-{
-  "email": "email@gmail.com",
-  "password": "123456"
-}
-```
-
-### Retorno esperado
-
-**STATUS 200**
-
-```json
-{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsQGdtYWlsLmNvbSIsImlhdCI6MTY5MjY0MTMyOSwiZXhwIjoxNjkyNzI3NzI5LCJzdWIiOiI3Nzk2Y2JjMy01ZDI0LTQ3M2ItOTM5MC0yM2Q0N2JiYzM2YjUifQ.VXCgaFen5Ur6-mj_9SGBxetJQSvavZ553W5XwMvWB"
-}
-```
-
----
 
 ## Lista todos os posts de um usuário
 ## `/user/posts/uuid`
