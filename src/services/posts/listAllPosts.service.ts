@@ -3,6 +3,7 @@ import {
   postResponseArray,
   postsResponseArrayPaginated,
 } from "../../interfaces/posts.interface";
+import { postsSchemaArray } from "../../schemas/posts.schemas";
 import { handlePaginationListAllPosts } from "../../utils/pagination/handlePaginationListAllPosts";
 
 export const listAllPostsService = async (
@@ -29,12 +30,14 @@ export const listAllPostsService = async (
     take: limit,
   });
 
+  const postsFormated = postsSchemaArray.parse(posts)
+
   return {
     nextUrl,
     previousUrl,
     Total: total,
     offset,
     limit,
-    posts: posts,
+    posts: postsFormated,
   };
 };
