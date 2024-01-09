@@ -90,16 +90,18 @@ npm run dev
 
 ## 5 - Endpoints
 
-| Método | Rota                  | Descrição                                            |
-| ------ | --------------------- | ------------------------------------                 |
-| POST   | /users                | Cria Usuários.                                       |
-| POST   | /login                | Loga o usuário na aplicação.                         |
-| PATCH  | /users                | Modifica Usuários.                                   |
-| POST   | /address/uuid         | Cadastra um endereço para o usuário.                 |
-| GET    | /users/info           | Lista informações do usuário logado.                 |
-| GET    | /users                | Lista todos os usuários.                             |
-| PATCH  | /users/profile/image  | Armazena imagem de perfil por arquivo no Cloudinary  | 
-| GET    | /user/posts/uuid	 | Lista todos os posts de um usuário.			|
+| Método | Rota                  | Descrição                                                 |
+| ------ | --------------------- | --------------------------------------------------------  |
+| POST   | /users                | Cria Usuários.                                            |
+| POST   | /login                | Loga o usuário na aplicação.                              |
+| PATCH  | /users                | Modifica Usuários.                                        |
+| POST   | /address/uuid         | Cadastra um endereço para o usuário.                      |
+| GET    | /users/info           | Lista informações do usuário logado.                      |
+| GET    | /users                | Lista todos os usuários.                                  |
+| PATCH  | /users/profile/image  | Armazena nova imagem de perfil por arquivo no Cloudinary  |
+| DELETE | /users		 | Deleta o usuário					     | 
+| GET    | /users/posts/uuid	 | Lista todos os posts de um usuário.			     |
+| GET    | /posts		 | Lista todos os posts					     | 
 
 ---
 
@@ -314,7 +316,7 @@ npm run dev
 
 
 
-Todos os querys params são opcionais. Exemplo de requisição: `localhost:3001/users?name=tes&limit=5&offset=5`
+Todos os querys params são opcionais. Exemplo de requisição: `http://localhost:3001/users?name=te&limit=2&offset=0`
 
 Caso nenhum query params seja fornecido, offset terá o valor 0 e limit terá o valor 5.
 
@@ -325,75 +327,41 @@ Caso nenhum query params seja fornecido, offset terá o valor 0 e limit terá o 
 
 ```json
 {
-	"nextUrl": "/users?limit=5&offset=5",
+	"nextUrl": "/users?name=te&limit=2&offset=2",
 	"previousUrl": null,
-	"limit": 5,
+	"limit": 2,
 	"offset": 0,
-	"total": 10,
+	"total": 11,
 	"users": [
 		{
-			"uuid": "191d95a3-b5fc-401a-923f-517649ef4093",
-			"name": "Daniel",
+			"uuid": "d9243a46-3e4f-4cd8-a201-859456388fff",
+			"name": "teste patch",
 			"image": null,
-			"email": "daniel@gmail.com",
-			"cpf": "29148-728",
+			"email": "teste@gmail.com",
+			"cpf": "12345-678",
 			"phone": "(00)0000-0000",
 			"date_of_birth": "00/00/0000",
 			"description": "Descrição",
-			"createdAt": "2023-11-29T18:41:56.450Z",
-			"updatedAt": "2023-11-29T18:41:56.450Z",
-			"address": null
+			"createdAt": "2023-12-29T13:52:06.471Z",
+			"updatedAt": "2023-12-29T13:59:48.689Z",
+			"address": {
+				"uuid": "cdc615ef-ad85-40da-afa5-c19adfb20e54",
+				"cep": "01153-000",
+				"state": "SP",
+				"city": "São Paulo"
+			}
 		},
 		{
-			"uuid": "392dcd63-a3e5-48e0-9d30-bfb1f7d86e91",
-			"name": "juuj",
+			"uuid": "fd0ab9c9-2450-4e09-8eba-1d58693bb0fc",
+			"name": "teste 2",
 			"image": null,
-			"email": "juuj@gmail.com",
-			"cpf": "29148-729",
+			"email": "test2e@gmail.com",
+			"cpf": "12347-678",
 			"phone": "(00)0000-0000",
 			"date_of_birth": "00/00/0000",
-			"description": "Descrição",
-			"createdAt": "2023-11-29T18:42:11.928Z",
-			"updatedAt": "2023-11-29T18:42:11.928Z",
-			"address": null
-		},
-		{
-			"uuid": "6d073b99-8bee-4e4d-8c86-293e90343acb",
-			"name": "Marquinhos",
-			"image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1702580959/iyp0rv2lfpofykoji6j5.png",
-			"email": "marquinhos@gmail.com",
-			"cpf": "29148-725",
-			"phone": "(00)0000-0000",
-			"date_of_birth": "00/00/0000",
-			"description": "Descrição",
-			"createdAt": "2023-11-29T18:11:48.479Z",
-			"updatedAt": "2023-12-14T19:09:20.449Z",
-			"address": null
-		},
-		{
-			"uuid": "86e26a19-435c-4ecf-8f53-4cc55b6d9d98",
-			"name": "Douglas",
-			"image": null,
-			"email": "douglas@gmail.com",
-			"cpf": "29148-726",
-			"phone": "(00)0000-0000",
-			"date_of_birth": "00/00/0000",
-			"description": "Descrição",
-			"createdAt": "2023-11-29T18:41:29.296Z",
-			"updatedAt": "2023-11-29T18:41:29.296Z",
-			"address": null
-		},
-		{
-			"uuid": "88bae1f3-1c21-4441-8ed2-bcc8f97dfc6c",
-			"name": "matheus",
-			"image": null,
-			"email": "matheus@gmail.com",
-			"cpf": "29148-741",
-			"phone": "(00)0000-0000",
-			"date_of_birth": "00/00/0000",
-			"description": "Descrição",
-			"createdAt": "2023-11-29T18:43:14.585Z",
-			"updatedAt": "2023-11-29T18:43:14.585Z",
+			"description": "Descrição 2",
+			"createdAt": "2023-12-29T14:20:15.080Z",
+			"updatedAt": "2023-12-29T14:20:15.080Z",
 			"address": null
 		}
 	]
@@ -401,9 +369,10 @@ Caso nenhum query params seja fornecido, offset terá o valor 0 e limit terá o 
 ```
 
 ---
+## PATCH
 
-## Armazena imagem de perfil por arquivo
-## `/users/profile/image`
+### Armazena nova imagem de perfil por arquivo
+### `/users/profile/image`
 
 
 #### Necessário Bearer token.
@@ -420,26 +389,32 @@ FildName precisa ser `profile`
 
 ```json
 {
-	"uuid": "23122b9e-d57a-4b06-85e1-5383faf4698",
-	"name": "usuario",
-	"image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1694716567/s52wouhrjqqtmpugyqsm.png",
-	"email": "email@gmail.com",
-	"cpf": "000.000.000-00",
-	"phone": null,
-	"date_of_birth": "19/09/2000",
-	"description": null,
-	"createdAt": "2023-09-14T18:27:45.187Z",
-	"updatedAt": "2023-09-14T18:35:08.980Z",
-	"address": null
+	"uuid": "d9243a46-3e4f-4cd8-a201-859456388fff",
+	"name": "teste patch",
+	"image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1704821697/nuflu6doeopiiqaar4xt.jpg",
+	"email": "teste@gmail.com",
+	"cpf": "12345-678",
+	"phone": "(00)0000-0000",
+	"date_of_birth": "00/00/0000",
+	"description": "Descrição",
+	"createdAt": "2023-12-29T13:52:06.471Z",
+	"updatedAt": "2024-01-09T17:34:57.723Z",
+	"address": {
+		"uuid": "cdc615ef-ad85-40da-afa5-c19adfb20e54",
+		"cep": "01153-000",
+		"state": "SP",
+		"city": "São Paulo"
+	}
 }
 ```
 
 
 ---
 
+## GET
 
-## Lista todos os posts de um usuário
-## `/user/posts/uuid`
+### Lista todos os posts de um usuário
+### `/users/posts/uuid`
 
 #### Necessário Bearer token.
 
@@ -448,7 +423,7 @@ FildName precisa ser `profile`
 - limit: Define quantos posts você deseja buscar por páginação.
 
 
-Todos os querys params são opcionais. Exemplo de requisição: `http://localhost:3001/posts/fd14c75b-8303-499a-b6ef-3d2598474121?offset=0&limit=3`
+Todos os querys params são opcionais. Exemplo de requisição: `http://localhost:3001/users/posts/d9243a46-3e4f-4cd8-a201-859456388fff?limit=2&offset=0`
 
 Caso nenhum query params seja fornecido, offset terá o valor 0 e limit terá o valor 5.
 
@@ -459,77 +434,144 @@ Caso nenhum query params seja fornecido, offset terá o valor 0 e limit terá o 
 
 ```json
 {
-  "nextUrl": "/posts/user?offset=3&limit=3",
+  "nextUrl": null,
   "previousUrl": null,
-  "Total": 28,
-  "limit": 3,
+  "Total": 2,
+  "limit": 2,
   "offset": 0,
   "posts": [
     {
-      "uuid": "0c6ddb09-5ef6-4d0b-89ee-87e3a47deba9",
-      "post": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis imperdiet a leo eget fermentum. Vivamus suscipit blandit condimentum. Mauris id gravida metus. Curabitur dictum sed dui ut facilisis. Etiam sit amet vehicula quam, vitae pharetra metus. Praesent sollicitudin porttitor ullamcorper. Maecenas tristique lectus vitae tortor porttitor tristique. Aliquam eu odio augue. Fusce aliquam arcu vitae pretium gravida.",
+      "uuid": "9463ec4d-c997-4e18-977a-208e47d110eb",
+      "post": "meu post",
       "image": null,
-      "author_uuid": "fd14c75b-8303-499a-b6ef-3d2598474121",
-      "createdAt": "2023-09-22T19:07:04.000Z",
-      "updatedAt": "2023-09-22T19:07:04.433Z",
       "author": {
-        "uuid": "fd14c75b-8303-499a-b6ef-3d2598474121",
-        "name": "Marquinhos",
-        "image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1695062377/lon0lsou7pqfdxvo4q34.jpg",
-        "email": "marquinhos@gmail.com",
-        "cpf": "000.000.000-00",
-        "phone": null,
-        "date_of_birth": "19/09/2000",
-        "description": null,
-        "password": "$2a$10$QnpNAasQKWMLsMZ8VcMQt.99wTQl.Fo6RuuqGFephsiqt/5bopfn2",
-        "createdAt": "2023-09-18T18:36:28.228Z",
-        "updatedAt": "2023-09-18T18:39:37.599Z"
-      }
+        "uuid": "d9243a46-3e4f-4cd8-a201-859456388fff",
+        "name": "teste patch",
+        "image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1704821697/nuflu6doeopiiqaar4xt.jpg",
+        "email": "teste@gmail.com",
+        "cpf": "12345-678",
+        "phone": "(00)0000-0000",
+        "date_of_birth": "00/00/0000",
+        "description": "Descrição",
+        "createdAt": "2023-12-29T13:52:06.471Z",
+        "updatedAt": "2024-01-09T17:34:57.723Z"
+      },
+      "author_uuid": "d9243a46-3e4f-4cd8-a201-859456388fff",
+      "createdAt": "2024-01-09T17:45:37.000Z",
+      "updatedAt": "2024-01-09T17:45:36.822Z"
     },
     {
-      "uuid": "1baae4cc-ca83-47dd-9be7-08b03bf3f937",
-      "post": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis imperdiet a leo eget fermentum. Vivamus suscipit blandit condimentum. Mauris id gravida metus. Curabitur dictum sed dui ut facilisis. Etiam sit amet vehicula quam, vitae pharetra metus. Praesent sollicitudin porttitor ullamcorper. Maecenas tristique lectus vitae tortor porttitor tristique. Aliquam eu odio augue. Fusce aliquam arcu vitae pretium gravida.",
+      "uuid": "deaaf2ef-64f1-4c46-85c9-b26b7d1e4992",
+      "post": "outro post",
       "image": null,
-      "author_uuid": "fd14c75b-8303-499a-b6ef-3d2598474121",
-      "createdAt": "2023-09-22T19:07:04.000Z",
-      "updatedAt": "2023-09-22T19:07:04.115Z",
       "author": {
-        "uuid": "fd14c75b-8303-499a-b6ef-3d2598474121",
-        "name": "Marquinhos",
-        "image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1695062377/lon0lsou7pqfdxvo4q34.jpg",
-        "email": "marquinhos@gmail.com",
-        "cpf": "000.000.000-00",
-        "phone": null,
-        "date_of_birth": "19/09/2000",
-        "description": null,
-        "password": "$2a$10$QnpNAasQKWMLsMZ8VcMQt.99wTQl.Fo6RuuqGFephsiqt/5bopfn2",
-        "createdAt": "2023-09-18T18:36:28.228Z",
-        "updatedAt": "2023-09-18T18:39:37.599Z"
-      }
-    },
-    {
-      "uuid": "21ba6f14-c824-4aa0-9eec-10d6c54d38ba",
-      "post": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis imperdiet a leo eget fermentum. Vivamus suscipit blandit condimentum. Mauris id gravida metus. Curabitur dictum sed dui ut facilisis.",
-      "image": null,
-      "author_uuid": "fd14c75b-8303-499a-b6ef-3d2598474121",
-      "createdAt": "2023-09-22T19:07:06.000Z",
-      "updatedAt": "2023-09-22T19:07:05.768Z",
-      "author": {
-        "uuid": "fd14c75b-8303-499a-b6ef-3d2598474121",
-        "name": "Marquinhos",
-        "image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1695062377/lon0lsou7pqfdxvo4q34.jpg",
-        "email": "marquinhos@gmail.com",
-        "cpf": "000.000.000-00",
-        "phone": null,
-        "date_of_birth": "19/09/2000",
-        "description": null,
-        "password": "$2a$10$QnpNAasQKWMLsMZ8VcMQt.99wTQl.Fo6RuuqGFephsiqt/5bopfn2",
-        "createdAt": "2023-09-18T18:36:28.228Z",
-        "updatedAt": "2023-09-18T18:39:37.599Z"
-      }
+        "uuid": "d9243a46-3e4f-4cd8-a201-859456388fff",
+        "name": "teste patch",
+        "image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1704821697/nuflu6doeopiiqaar4xt.jpg",
+        "email": "teste@gmail.com",
+        "cpf": "12345-678",
+        "phone": "(00)0000-0000",
+        "date_of_birth": "00/00/0000",
+        "description": "Descrição",
+        "createdAt": "2023-12-29T13:52:06.471Z",
+        "updatedAt": "2024-01-09T17:34:57.723Z"
+      },
+      "author_uuid": "d9243a46-3e4f-4cd8-a201-859456388fff",
+      "createdAt": "2024-01-09T17:45:48.000Z",
+      "updatedAt": "2024-01-09T17:45:48.408Z"
     }
   ]
 }
 ```
 
 ---
+
+## DELETE 
+
+### Deleta um usuário de acordo com seu Token
+### `/users`
+
+#### Necessário Bearer token.
+
+#### Não é necessário corpo para a requisição
+
+### Retorno esperado
+**STATUS 204**
+
+--- 
+
+## GET 
+
+### Lista todos os posts
+### `/posts`
+
+#### Necessário Bearer token.
+
+`Query Params:` 
+- offset: Define o índice inicial para a páginação.
+- limit: Define quantos posts você deseja buscar por páginação.
+
+
+Todos os querys params são opcionais. Exemplo de requisição: `http://localhost:3001/posts/?limit=2&offset=0`
+
+Caso nenhum query params seja fornecido, offset terá o valor 0 e limit terá o valor 5.
+
+#### Não é necessário corpo para a requisição
+
+### Retorno esperado
+**STATUS 200**	
+
+```json
+{
+  "nextUrl": "/posts?offset=2&limit=2",
+  "previousUrl": null,
+  "Total": 4,
+  "offset": 0,
+  "limit": 2,
+  "posts": [
+    {
+      "uuid": "3ad939f6-8afb-4825-8fc4-7628997767ed",
+      "post": "meu post",
+      "image": null,
+      "author": {
+        "uuid": "6d073b99-8bee-4e4d-8c86-293e90343acb",
+        "name": "Marquinhos",
+        "image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1702580959/iyp0rv2lfpofykoji6j5.png",
+        "email": "marquinhos@gmail.com",
+        "cpf": "29148-725",
+        "phone": "(00)0000-0000",
+        "date_of_birth": "00/00/0000",
+        "description": "Descrição",
+        "createdAt": "2023-11-29T18:11:48.479Z",
+        "updatedAt": "2023-12-14T19:09:20.449Z"
+      },
+      "author_uuid": "6d073b99-8bee-4e4d-8c86-293e90343acb",
+      "createdAt": "2023-12-04T19:29:42.000Z",
+      "updatedAt": "2023-12-04T19:29:41.787Z"
+    },
+    {
+      "uuid": "9463ec4d-c997-4e18-977a-208e47d110eb",
+      "post": "meu post",
+      "image": null,
+      "author": {
+        "uuid": "d9243a46-3e4f-4cd8-a201-859456388fff",
+        "name": "teste patch",
+        "image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1704821697/nuflu6doeopiiqaar4xt.jpg",
+        "email": "teste@gmail.com",
+        "cpf": "12345-678",
+        "phone": "(00)0000-0000",
+        "date_of_birth": "00/00/0000",
+        "description": "Descrição",
+        "createdAt": "2023-12-29T13:52:06.471Z",
+        "updatedAt": "2024-01-09T17:34:57.723Z"
+      },
+      "author_uuid": "d9243a46-3e4f-4cd8-a201-859456388fff",
+      "createdAt": "2024-01-09T17:45:37.000Z",
+      "updatedAt": "2024-01-09T17:45:36.822Z"
+    }
+  ]
+}
+
+---
+
+
