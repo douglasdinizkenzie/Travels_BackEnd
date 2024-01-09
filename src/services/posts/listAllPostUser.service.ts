@@ -5,6 +5,7 @@ import {
 } from "../../interfaces/posts.interface";
 import prisma from "../../database/prismaClient";
 import { handlePaginationListAllUserPosts } from "../../utils/pagination/handlePaginationListAllUserPosts";
+import { postsSchemaArray } from "../../schemas/posts.schemas";
 
 export const listAllPostUserService = async (
   limit: any,
@@ -31,12 +32,14 @@ export const listAllPostUserService = async (
   const { nextUrl, previousUrl, totalPosts } =
     await handlePaginationListAllUserPosts(limit, offset, userUUID);
 
+  const userPostsFormated = postsSchemaArray.parse(userPosts)
+
   return {
     nextUrl,
     previousUrl,
     Total: totalPosts,
     limit,
     offset,
-    posts: userPosts,
+    posts: userPostsFormated,
   };
 };
