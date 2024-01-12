@@ -101,7 +101,11 @@ npm run dev
 | PATCH  | /users/profile/image  | Armazena nova imagem de perfil por arquivo no Cloudinary  |
 | DELETE | /users		 | Deleta o usuário					     | 
 | GET    | /users/posts/uuid	 | Lista todos os posts de um usuário.			     |
-| GET    | /posts		 | Lista todos os posts					     | 
+| GET    | /posts		 | Lista todos os posts					     |
+| POST 	 | /posts		 | Cria um novo post					     | 
+| PATCH  | /posts/uuid 		 | Edita um post do usuário				     |
+| PATCH  | /posts/image/uuid     | Adiciona uma imagem ao post				     | 
+| DELETE | /posts/uuid		 | Deleta o post do usuário 				     | 
 
 ---
 
@@ -571,7 +575,153 @@ Caso nenhum query params seja fornecido, offset terá o valor 0 e limit terá o 
     }
   ]
 }
+```
+---
+
+## POST
+
+### Criar um novo post.
+
+### `/posts`
+
+#### Necessário Bearer token.
+
+### Requisição
+
+```json
+{
+ "post": "meu novo post"
+}
+```
+
+### Retorno esperado
+
+**STATUS 201**
+
+```json
+{
+  "uuid": "d1bea64e-53db-4dbc-ba36-2f74facd4d28",
+  "post": "meu novo post",
+  "image": null,
+  "author": {
+    "uuid": "d9243a46-3e4f-4cd8-a201-859456388fff",
+    "name": "teste patch",
+    "image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1704821697/nuflu6doeopiiqaar4xt.jpg",
+    "email": "teste@gmail.com",
+    "cpf": "12345-678",
+    "phone": "(00)0000-0000",
+    "date_of_birth": "00/00/0000",
+    "description": "Descrição",
+    "createdAt": "2023-12-29T13:52:06.471Z",
+    "updatedAt": "2024-01-09T17:34:57.723Z"
+  },
+  "author_uuid": "d9243a46-3e4f-4cd8-a201-859456388fff",
+  "createdAt": "2024-01-12T18:06:24.000Z",
+  "updatedAt": "2024-01-12T18:06:24.446Z"
+}
+```
 
 ---
 
+## PATCH
+
+### Modificar uum post do usuário.
+
+### `/posts/uuid`
+
+#### Necessário Bearer token.
+
+### Requisição
+
+```json
+{
+  "post": "Post alterado"
+}
+```
+
+### Retorno esperado
+
+**STATUS 200**
+
+```json
+{
+  "uuid": "d1bea64e-53db-4dbc-ba36-2f74facd4d28",
+  "post": "post alterado",
+  "image": null,
+  "author": {
+    "uuid": "d9243a46-3e4f-4cd8-a201-859456388fff",
+    "name": "teste patch",
+    "image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1704821697/nuflu6doeopiiqaar4xt.jpg",
+    "email": "teste@gmail.com",
+    "cpf": "12345-678",
+    "phone": "(00)0000-0000",
+    "date_of_birth": "00/00/0000",
+    "description": "Descrição",
+    "createdAt": "2023-12-29T13:52:06.471Z",
+    "updatedAt": "2024-01-09T17:34:57.723Z"
+  },
+  "author_uuid": "d9243a46-3e4f-4cd8-a201-859456388fff",
+  "createdAt": "2024-01-12T18:06:24.000Z",
+  "updatedAt": "2024-01-12T18:10:39.528Z"
+}
+```
+
+---
+
+## PATCH
+
+### Armazena nova imagem ao post.
+### `/posts/image/uuid`
+
+
+#### Necessário Bearer token.
+
+Multipart form
+
+FildName precisa ser `post`
+
+#### Só serão aceitos formatos JPG, JPEG OU PNG.
+
+### Retorno esperado
+
+**STATUS 201**
+
+```json
+{
+  "uuid": "d1bea64e-53db-4dbc-ba36-2f74facd4d28",
+  "post": "post alterado",
+  "image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1705083381/ukfcntqxr5a3h1hhxxc1.png",
+  "author": {
+    "uuid": "d9243a46-3e4f-4cd8-a201-859456388fff",
+    "name": "teste patch",
+    "image": "https://res.cloudinary.com/dacrmdilc/image/upload/v1704821697/nuflu6doeopiiqaar4xt.jpg",
+    "email": "teste@gmail.com",
+    "cpf": "12345-678",
+    "phone": "(00)0000-0000",
+    "date_of_birth": "00/00/0000",
+    "description": "Descrição",
+    "createdAt": "2023-12-29T13:52:06.471Z",
+    "updatedAt": "2024-01-09T17:34:57.723Z"
+  },
+  "author_uuid": "d9243a46-3e4f-4cd8-a201-859456388fff",
+  "createdAt": "2024-01-12T18:06:24.000Z",
+  "updatedAt": "2024-01-12T18:16:22.132Z"
+}
+```
+
+---
+
+## DELETE 
+
+### Deleta um post do usuário
+### `/posts/uuid`
+
+#### Necessário Bearer token.
+
+#### Não é necessário corpo para a requisição
+
+### Retorno esperado
+**STATUS 204**
+
+--- 
 
